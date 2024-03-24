@@ -17,7 +17,6 @@ pipeline {
                 }
             }
             steps {
-                echo "user : ${USER_SUBMIT}"
                 echo "version : ${VERSION}"
                 echo 'deploy !'
 
