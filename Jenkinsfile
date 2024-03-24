@@ -8,18 +8,11 @@ pipeline {
             }
         }
         stage('deployment production') {
-            input{
-                message 'Voulez-vous deployer en production ?'
-                ok 'deployer'
-                submitter 'admin,devops'
-                parameters{
-                    string(name:'VERSION', defaultValue:'latest', description:'une version')
-                }
+            when {
+                branch 'prod'
             }
             steps {
-                echo "version : ${VERSION}"
                 echo 'deploy !'
-
             }
         }
     }
