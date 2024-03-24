@@ -10,6 +10,9 @@ pipeline {
             }
         }
         stage('deployment production') {
+            when {
+                branch "main"
+            }
             steps {
                 echo 'deploy !'
             }
