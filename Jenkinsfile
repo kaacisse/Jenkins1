@@ -22,6 +22,35 @@ pipeline {
             }
 
         }
+
+        stages{
+            stage('build and test'){
+                matrix{
+                    axes{
+                        axis{
+                            name 'PLATEFORM'
+                            values 'linux', 'macos', 'windows'
+                        }
+                        axis{
+                            name 'BROWSER'
+                            values 'firefox','chrome','safari'
+                        }
+                    }
+                    stages{
+                        stage('build'){
+                            steps{
+                                echo "construire pour ${ PLATEFORM} - ${BROWSER}"
+                            }
+                        }
+                        stage('test'){
+                            steps{
+                                echo "test pour ${ PLATEFORM} - ${BROWSER}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
         stage('deployment production'){
             steps{
                 echo 'deploy'
