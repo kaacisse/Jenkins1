@@ -1,8 +1,14 @@
 pipeline {
     agent any
-
+    parameters{
+        string(name: 'NAME', defaultValue: 'M. Jenkins', description: 'Qui est ce ?')
+        text(name: 'TEXT', defaultValue: 'un text', description:'une description')
+        booleabParam(name: 'TOGGLE', defaultValue:true, description: 'true or false')
+        choice( name: 'CHOICE', choices: ['un', 'deux', 'trois'], description: 'liste')
+        password(name:'PASSWORD', description: 'un mot de passe')
+    }
     options{
-
+        disableConcurrentBuilds()
         timeout(time: 1, unit: "HOURS")                   
         timestamps()         
     }
@@ -22,6 +28,13 @@ pipeline {
                 echo "MY_VAR : ${ env.MY_VAR }"
                 echo "MY_NUMBER : ${ env.MY_NUMBER }"
                 sh 'printenv'
+
+                echo "NAME : ${ NAME }"
+                echo "TEXT : ${ TEXT }"
+                echo "TOGGLE : ${ TOGGLE }"
+                echo "CHOICE : ${ CHOICE }"
+                echo "PASSWORD : ${ PASSWORD }"
+
             }
         }
     }
