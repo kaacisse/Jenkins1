@@ -5,7 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'build complete ....'
-                echo "branch : ${env.BRANCH_NAME}"
             }
         }
         stage('deployment production') {
