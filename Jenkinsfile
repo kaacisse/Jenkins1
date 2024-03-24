@@ -3,13 +3,7 @@ pipeline {
     triggers{
         pollSCM('* * * * *')
     }
-    parameters{
-        string(name: 'NAME', defaultValue: 'M. Jenkins', description: 'Qui est ce ?')
-        text(name: 'TEXT', defaultValue: 'un text', description:'une description')
-        booleanParam(name: 'TOGGLE', defaultValue:true, description: 'true or false')
-        choice( name: 'CHOICE', choices: ['un', 'deux', 'trois'], description: 'liste')
-        password(name:'PASSWORD', description: 'un mot de passe')
-    }
+
     options{
         disableConcurrentBuilds()
         timeout(time: 1, unit: "HOURS")                   
@@ -32,11 +26,22 @@ pipeline {
                 echo "MY_NUMBER : ${ env.MY_NUMBER }"
                 sh 'printenv'
 
-                echo "NAME : ${ NAME }"
-                echo "TEXT : ${ TEXT }"
-                echo "TOGGLE : ${ TOGGLE }"
-                echo "CHOICE : ${ CHOICE }"
-                echo "PASSWORD : ${ PASSWORD }"
+            }
+        }
+        stage('deployment production') {
+            input{
+                message 'Voulez-vous deployer en production ?'
+                ok 'deployer'
+                submitter 'admin,devops'
+                submitParameter : 'USER_SUBMIT'
+                parameters{
+                    string(name:'VERSION', defaultValue:'latest', description:'une version')
+                }
+            }
+            steps {
+                echo "user : ${USER_SUBMIT}"
+                echo "version : ${VERSION}"
+                echo 'deploy !'
 
             }
         }
