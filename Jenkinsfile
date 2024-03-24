@@ -1,30 +1,33 @@
 pipeline {
     agent any
-    environment{
-        DEPLOY_TO = 'production'
-    }
+    
+ //   options{
+ //       parallelAlwaysFailFast();
+ //   }
     stages {
         stage('Build') {
-            steps {
-                echo 'build complete ....'
-                sh 'printenv'
+            failFast true
+
+            parallel{
+                stage('build FRONTEND'){
+                    steps{
+                        echo 'build frontend'
+                    }
+                }
+                stage('build BACKEND'){
+                    steps{
+                        echo 'build backend'
+                    }
+                }               
             }
+
         }
-        stage('deployment production') {
-            when {
-                branch "main"
+        stage('deployment production'){
+            steps{
+                echo 'deploy'
             }
-            steps {
-                echo 'deploy !'
-            }
-        }
+        }         
+
     }
-    post{
-        always{
-            echo 'always !'
-        }
-        success{
-            echo 'success !'
-        }
-    }
+
 }
