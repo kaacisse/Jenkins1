@@ -10,13 +10,6 @@ pipeline {
             }
         }
         stage('deployment production') {
-            when {
-                allOf(
-                  
-                    environment name: 'DEPLOY_TO', value: 'production'
-                )
-                
-            }
             steps {
                 echo 'deploy !'
             }
