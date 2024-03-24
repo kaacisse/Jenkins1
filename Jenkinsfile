@@ -10,8 +10,10 @@ pipeline {
         }
         stage('deployment production') {
             when {
-                echo "branch : ${env.BRANCH}"
-                branch 'main'
+                allOf(
+                    branch 'main'
+                )
+                
             }
             steps {
                 echo 'deploy !'
