@@ -1,34 +1,17 @@
-pipeline {
-    agent none
-    stages {
-        stage('BuildAndTest') {
-            matrix {
-                agent {
-                    label "${PLATFORM}-agent"
-                }
-                axes {
-                    axis {
-                        name 'PLATFORM'
-                        values 'linux', 'windows', 'mac'
-                    }
-                    axis {
-                        name 'BROWSER'
-                        values 'firefox', 'chrome', 'safari', 'edge'
-                    }
-                }
-                stages {
-                    stage('Build') {
-                        steps {
-                            echo "construire pour ${PLATFORM} - ${BROWSER}"
-                        }
-                    }
-                    stage('Test') {
-                        steps {
-                            echo "tester pour ${PLATFORM} - ${BROWSER}"
-                        }
-                    }
+pipeline{
+    agent any
+    stages{
+        stage("build"){
+            steps{
+                echo "========executing build========"
+            }
+
+            post{
+                success{
+                    emailtext to: 'amadoualicisse.khaled@yahoo.fr' , body:'test body' ,subject: 'test subject jenkins'
                 }
             }
         }
     }
+
 }
