@@ -10,7 +10,8 @@ pipeline{
 
             post{
                 success{
-                    emailtext to: 'amadoualicisse.khaled@yahoo.fr' , body:'test body' ,subject: 'test subject jenkins'
+                    emailtext (to: 'amadoualicisse.khaled@yahoo.fr' , body:'test body' ,subject: 'test subject jenkins')
+                    echo "========executing build========"
                 }
             }
 
