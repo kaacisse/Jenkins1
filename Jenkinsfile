@@ -5,13 +5,13 @@ pipeline{
             steps{
                 echo "========executing build========"
             }
+        }
+    }
 
             post{
                 success{
                     emailtext to: 'amadoualicisse.khaled@yahoo.fr' , body:'test body' ,subject: 'test subject jenkins'
                 }
             }
-        }
-    }
 
 }
